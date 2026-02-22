@@ -21,11 +21,17 @@ function updateTrack() {
     fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-            document.getElementById("title").textContent = data.title;
-            document.getElementById("artist").textContent = data.artist;
+            if (data && data.title) {
+                document.getElementById("title").textContent = data.title;
+                document.getElementById("artist").textContent = data.artist;
+            } else {
+                document.getElementById("title").textContent = "Titre indisponible";
+                document.getElementById("artist").textContent = "Artiste indisponible";
+            }
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log("Erreur API :", err));
 }
 
 setInterval(updateTrack, 5000);
 updateTrack();
+
